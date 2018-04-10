@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { Connect} from 'react-redux'
+import { connect} from 'react-redux'
 import { addRecipe, removeFromCalender } from '../actions'
 import { capitalize } from '../utils/helpers'
 import CalendarIcon from 'react-icons/lib/fa/calendar-plus-o'
+import Modal from 'react-modal'
+import ArrowRightIcon from 'react-icons/lib/fa/arrow-circle-right'
+import Loading from 'react-loading'
+import { fetchRecipes } from '../utils/api'
+import FoodList from './FoodList'
 
 class App extends Component {
   render() {
@@ -50,10 +55,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({food, calender}) {
+function mapStateToProps({food, calendar}) {
   const dayOrder = ['sunday', 'monday', 'tuesday', 'wednesday','thursday','friday','saturday']
   return {
-    calender: dayOrder.map((day) => ({
+    calendar: dayOrder.map((day) => ({
       day,
       meals: Object.keys(calendar[day]).reduce((meals, meal) => {
         meals[meal] = calendar[day][meal]
