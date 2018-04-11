@@ -21,7 +21,8 @@ class App extends Component {
    }
 
    openFoodModal = ({ meal, day }) => {
-     this.setState(()=>({
+    console.log('in openFoodModal...'); 
+    this.setState(()=>({
        foodModalOpen: true,
        meal,
        day
@@ -29,6 +30,7 @@ class App extends Component {
    }
 
    closeFoodModal = () => {
+    console.log('in closeFoodModal...');
      this.setState(()=>({
        foodModalOpen: false,
        meal: null,
@@ -37,20 +39,23 @@ class App extends Component {
      }))
    }
 
-   search = (e) => {
+   searchFood  = (e) => {
+     console.log('in search...')
      if (!this.input.value) {
        return
      }
 
-     e.preventDefault();
+     e.preventDefault()
 
      this.setState(()=>({loadingFood: true}))
 
      fetchRecipes(this.input.value)
-       .then((food)=>this.setState(()=>({
+       .then((food)=>{
+        console.log('food............' + JSON.stringify(food))
+        this.setState(()=>({
          food,
          loadingFood: false
-       })))
+       }))})
    }
 
    openIngredientsModal = () => this.setState(()=>({ ingredientsModalOpen: true}))
